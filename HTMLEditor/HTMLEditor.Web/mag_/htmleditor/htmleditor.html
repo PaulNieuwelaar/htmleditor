@@ -1,0 +1,128 @@
+﻿<html>
+<head>
+    <title></title>
+    <script src="ckeditor.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        CKEDITOR.timestamp = null;
+
+        var _qs = getQueryStrings();
+        var _fieldName = getQueryString("field");
+
+        $(document).ready(function () {
+            CKEDITOR.config.contentsCss = CKEDITOR.getUrl("contents.css");
+
+            // Get the existing value from the form (field must be on the form, hidden etc)
+            var field = parent.Xrm.Page.getAttribute(_fieldName);
+            var htmlValue = field.getValue();
+
+            // If there is no existing value check for a default value
+            if (htmlValue == null || htmlValue == "" || htmlValue == "null") {
+                htmlValue = decodeURIComponent(getQueryString("defaultvalue"));
+            }
+
+            // Populate the HTML editor with the existing value from the form
+            document.getElementById('editor1').value = htmlValue;
+
+            // Save the HTML to the form field when clicking out of the HTML editor
+            CKEDITOR.instances.editor1.on('blur', function () {
+                var value = CKEDITOR.instances.editor1.getData();
+                var field = parent.Xrm.Page.getAttribute(_fieldName);
+                var maxLength = field.getMaxLength();
+
+                // If the fields max length is exceeded display an error
+                if (value.length > maxLength) {
+                    parent.Xrm.Utility.alertDialog("You have exceeded the maximum number of " + maxLength + " characters in this field");
+                }
+
+                // Set the value, even if max length is exceeded to allow CRM validation to kick in on save
+                field.setValue(value);
+            });
+        });
+
+        // Get all the custom querystrings passed to the web resource
+        function getQueryStrings() {
+            var qs = null;
+
+            if (location.search != "") {
+                // Get all the query strings
+                var qs = location.search.substr(1).split("&");
+                for (var i in qs) {
+                    qs[i] = qs[i].replace(/\+/g, " ").split("=");
+                }
+
+                // Look for the parameter named 'data' (contains all our custom qs's)
+                var data = "";
+                for (var i in qs) {
+                    if (qs[i][0].toLowerCase() == "data") {
+                        data = qs[i][1];
+                        break;
+                    }
+                }
+
+                // Get all of our query strings
+                if (data != "") {
+                    var vals = decodeURIComponent(data).split("&");
+                    for (var i in vals) {
+                        vals[i] = vals[i].replace(/\+/g, " ").split("=");
+                    }
+
+                    qs = vals;
+                }
+            }
+
+            return qs;
+        }
+
+        // Get the value of a specific querystring
+        function getQueryString(key) {
+            var value = "";
+
+            if (_qs != null) {
+                for (var i in _qs) {
+                    if (_qs[i][0].toLowerCase() == key) {
+                        value = _qs[i][1];
+                        break;
+                    }
+                }
+            }
+
+            return value;
+        }
+
+    </script>
+    <meta charset="utf-8">
+
+    <style type="text/css">
+        /* Makes the HTML editor span 100% of the web resource height */
+        #cke_1_contents {
+            height: 100% !important;
+            height: -webkit-calc(100% - 40px) !important;
+            height: -moz-calc(100% - 40px) !important;
+            height: calc(100% - 40px) !important;
+        }
+
+        #cke_editor1 {
+            height: 100% !important;
+            height: -webkit-calc(100% - 5px) !important;
+            height: -moz-calc(100% - 5px) !important;
+            height: calc(100% - 5px) !important;
+        }
+
+        .cke_inner {
+            height: 100% !important;
+        }
+
+        html, body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <textarea name="editor1" class="ckeditor" id="editor1" rows="10" cols="80"></textarea>
+
+</body>
+</html>
