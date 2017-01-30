@@ -11,6 +11,10 @@
         var _fieldName = getQueryString("field");
 
         $(document).ready(function () {
+            loadData();
+        });
+
+        function loadData() {
             CKEDITOR.config.contentsCss = CKEDITOR.getUrl("contents.css");
 
             // Get the existing value from the form (field must be on the form, hidden etc)
@@ -25,21 +29,33 @@
             // Populate the HTML editor with the existing value from the form
             document.getElementById('editor1').value = htmlValue;
 
-            // Save the HTML to the form field when clicking out of the HTML editor
-            CKEDITOR.instances.editor1.on('blur', function () {
-                var value = CKEDITOR.instances.editor1.getData();
-                var field = parent.Xrm.Page.getAttribute(_fieldName);
-                var maxLength = field.getMaxLength();
+            // Check if the form is Create of Update
+            var formType = parent.Xrm.Page.ui.getFormType();
+            if (formType == 1 || formType == 2) {
+                // Save the HTML to the form field when clicking out of the HTML editor
+                CKEDITOR.instances.editor1.on('blur', function () {
+                    var value = CKEDITOR.instances.editor1.getData();
+                    var field = parent.Xrm.Page.getAttribute(_fieldName);
+                    var maxLength = field.getMaxLength();
 
-                // If the fields max length is exceeded display an error
-                if (value.length > maxLength) {
-                    parent.Xrm.Utility.alertDialog("You have exceeded the maximum number of " + maxLength + " characters in this field");
-                }
+                    // If the fields max length is exceeded display an error
+                    if (value.length > maxLength) {
+                        parent.Xrm.Utility.alertDialog("You have exceeded the maximum number of " + maxLength + " characters in this field");
+                    }
 
-                // Set the value, even if max length is exceeded to allow CRM validation to kick in on save
-                field.setValue(value);
-            });
-        });
+                    // Set the value, even if max length is exceeded to allow CRM validation to kick in on save
+                    field.setValue(value);
+                });
+
+                // Show the disabled overlay
+                $(".cke_dialog_background_cover").hide();
+            }
+            else {
+                // Hide the disabled overlay
+                var bg = $(".cke_dialog_background_cover");
+                bg.show();
+            }
+        }
 
         // Get all the custom querystrings passed to the web resource
         function getQueryStrings() {
