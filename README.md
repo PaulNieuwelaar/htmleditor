@@ -44,3 +44,6 @@ The buttons/editing tools available in this solution are based on the â€˜Basicâ€
 If however you do require any additional editing tools, you can check out the [CKEditor download page](http://ckeditor.com/download) and create yourself a custom download package, and then just be sure to upload the missing web resources using the same publisher prefix, and same file names, then update the config.js file to load those plugins as well.
 
 Note that this solution works in CRM 2013, and up to Dynamics 365, and works on any entities. You can also add the HTML editor to the same form multiple times, each referencing different fields.
+
+Created by [Paul Nieuwelaar](http://paulnieuwelaar.wordpress.com) - [@paulnz1](https://twitter.com/paulnz1)  
+Sponsored by [Magnetism Solutions - Dynamics CRM Specialists](http://www.magnetismsolutions.com)
