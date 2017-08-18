@@ -1,5 +1,5 @@
 # CRM 2013-D365 Basic HTML Editor / Rich Text
-[![download](https://user-images.githubusercontent.com/14048382/27844360-c7ea9670-6174-11e7-8658-80d356c1ba8f.png)](https://github.com/PaulNieuwelaar/htmleditor/raw/master/HTMLEditor_1_1_0_0.zip) (v2.1) [<img align="right" src="https://user-images.githubusercontent.com/14048382/29433676-4eb13ea6-83f4-11e7-8c07-eca514b1b197.png"/>](https://github.com/PaulNieuwelaar/htmleditor/wiki/Documentation)
+[![download](https://user-images.githubusercontent.com/14048382/27844360-c7ea9670-6174-11e7-8658-80d356c1ba8f.png)](https://github.com/PaulNieuwelaar/htmleditor/raw/master/HTMLEditor_1_1_0_0.zip) [<img align="right" src="https://user-images.githubusercontent.com/14048382/29433676-4eb13ea6-83f4-11e7-8c07-eca514b1b197.png"/>](https://github.com/PaulNieuwelaar/htmleditor/wiki/Documentation)
 
 ![](https://user-images.githubusercontent.com/14048382/29442838-47f93e36-8428-11e7-8496-e46ea8c678ff.png)
 
