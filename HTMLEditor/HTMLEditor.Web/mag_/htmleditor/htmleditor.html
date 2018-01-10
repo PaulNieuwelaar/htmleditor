@@ -2,7 +2,7 @@
 <head>
     <title></title>
     <script src="ckeditor.js"></script>
-    <script src="jquery_1.10.2.min.js"></script>
+    <script src="jquery_3.2.1.min.js"></script>
 
     <script type="text/javascript">
         CKEDITOR.timestamp = null;
@@ -134,6 +134,11 @@
             height: 100% !important;
             margin: 0 !important;
             padding: 0 !important;
+        }
+
+        /* Fixes editor button images not displaying because of extra '?t=123445' on the web resource name */
+        .cke_ltr span .cke_button_icon { 
+            background-image: url('skins/moono/icons.png') !important; 
         }
     </style>
 </head>
