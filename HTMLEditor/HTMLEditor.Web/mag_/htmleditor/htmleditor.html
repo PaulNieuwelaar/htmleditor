@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
     <title></title>
     <script src="ckeditor.js"></script>
@@ -33,7 +33,7 @@
             var formType = parent.Xrm.Page.ui.getFormType();
             if (formType == 1 || formType == 2) {
                 // Save the HTML to the form field when clicking out of the HTML editor
-                CKEDITOR.instances.editor1.on('blur', function () {
+                var onChangeFunction = function () {
                     var value = CKEDITOR.instances.editor1.getData();
                     var field = parent.Xrm.Page.getAttribute(_fieldName);
                     var maxLength = field.getMaxLength();
@@ -45,15 +45,17 @@
 
                     // Set the value, even if max length is exceeded to allow CRM validation to kick in on save
                     field.setValue(value);
-                });
+                }
 
-                // Show the disabled overlay
+                CKEDITOR.instances.editor1.on('blur', onChangeFunction);
+                CKEDITOR.instances.editor1.on('change', onChangeFunction);
+
+                // Hide the disabled overlay
                 $(".cke_dialog_background_cover").hide();
             }
             else {
-                // Hide the disabled overlay
-                var bg = $(".cke_dialog_background_cover");
-                bg.show();
+                // Show the disabled overlay
+                $(".cke_dialog_background_cover").show();
             }
         }
 
